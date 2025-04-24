@@ -1,7 +1,9 @@
-const Home = () => {
-  return (
-    <div>Home</div>
-  )
-}
+import WithoutSimbianSection from "@/components/WithoutSimbianSection";
 
-export default Home
+export default function Home() {
+  return (
+    <main>
+      <WithoutSimbianSection />
+    </main>
+  );
+}
