@@ -91,7 +91,7 @@ const WithSimbianSection = () => {
     }
   ]
   return (
-    <div className='w-full min-h-screen bg-[#85a8ff]'>
+    <div className='w-full min-h-screen'>
       <div className='m-auto relative p-10'>
         <div className='absolute top-10 left-10 text-white'>
           <h1 className='font-semibold text-4xl'>With Simbian</h1>

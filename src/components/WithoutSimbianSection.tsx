@@ -168,7 +168,7 @@ const WithoutSimbianSection = () => {
     }
   ]
   return (
-    <div className='w-full min-h-screen bg-[#1a294e]'>
+    <div className='w-full min-h-screen'>
       <div className='m-auto relative p-10'>
         <div className='absolute top-10 right-10'>
           <h1 className='text-end text-[#4F80FF] font-semibold text-4xl'>Without Simbian</h1>
