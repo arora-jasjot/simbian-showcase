@@ -6,7 +6,7 @@ const AlertsCard = ({ icon, title, count, threats, high_priority }: AlertInterfa
   return (
     <div className='w-full max-w-[300px]'>
       <div className='relative px-4 py-6'>
-        <div className={`absolute inset-0 ${high_priority ? 'bg-[#ff000030]' : 'bg-[#b9b9b90f]'} backdrop-blur-sm rounded-md z-0`}></div>
+        <div className={`absolute inset-0 ${high_priority ? 'bg-red-700/10' : 'bg-gray-200/10'} backdrop-blur-sm rounded-md z-0`}></div>
         <div className={`relative z-10 ${high_priority ? 'text-red-500' : 'text-white'}`}>
           <div className='flex justify-between items-center'>
             <div className="flex justify-start items-center gap-4">
@@ -16,10 +16,10 @@ const AlertsCard = ({ icon, title, count, threats, high_priority }: AlertInterfa
             <h1 className={`text-2xl font-semibold ${high_priority ? 'text-red-500' : 'text-[#49adff]'} mr-4`}>{count}</h1>
           </div>
           <div className='relative px-2 mt-1 w-full'>
-            <div className='absolute inset-0 bg-[#d5d5d50f] backdrop-blur-sm rounded-md z-0'></div>
-            <div className="flex z-10">
+            <div className='absolute inset-0 bg-gray-700/10 backdrop-blur-xl rounded-md z-0'></div>
+            <div className="flex z-10 h-10 w-full">
               {threats.map((threat, index) => (
-                <ThreatCard key={threat.id} id={threat.id} icon={threat.icon} title={threat.title} index={index} />
+                <ThreatCard key={threat.id} id={threat.id} icon={threat.icon} title={threat.title} index={index} leftMargin={true} />
               ))}
             </div>
           </div>
