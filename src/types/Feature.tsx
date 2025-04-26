@@ -3,4 +3,5 @@ export interface FeatureInterface {
   icon: string;
   title: string;
   description?: string;
+  is_negative?: boolean
 }

@@ -2,7 +2,7 @@ import { AlertInterface } from "@/types/Alert";
 import Image from "next/image";
 import ThreatCard from "./ThreatCard";
 
-const AlertsCard = ({ icon, title, count, threats, high_priority }: AlertInterface) => {
+const AlertsCard = ({ icon, title, count, threats, high_priority, show_success }: AlertInterface) => {
   return (
     <div className='w-full max-w-[300px]'>
       <div className='relative px-4 py-6'>
@@ -13,10 +13,10 @@ const AlertsCard = ({ icon, title, count, threats, high_priority }: AlertInterfa
               <Image src={icon} width={20} height={20} alt='Alert-3' />
               <h3 className='text-lg'>{title}</h3>
             </div>
-            <h1 className={`text-2xl font-semibold ${high_priority ? 'text-red-500' : 'text-[#49adff]'} mr-4`}>{count}</h1>
+            <h1 className={`text-2xl font-semibold ${high_priority ? 'text-red-500' : show_success ? 'text-[#61d26e]' : 'text-[#49adff]'} mr-4`}>{count}</h1>
           </div>
           <div className='relative px-2 mt-1 w-full'>
-            <div className='absolute inset-0 bg-gray-700/10 backdrop-blur-xl rounded-md z-0'></div>
+            <div className='absolute inset-0 bg-gray-500/10 backdrop-blur-xl rounded-md z-0'></div>
             <div className="flex z-10 h-10 w-full">
               {threats.map((threat, index) => (
                 <ThreatCard key={threat.id} id={threat.id} icon={threat.icon} title={threat.title} index={index} leftMargin={true} />

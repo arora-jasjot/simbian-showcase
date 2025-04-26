@@ -7,4 +7,5 @@ export interface AlertInterface {
   count: number;
   threats: ThreatInterface[];
   high_priority?: boolean;
+  show_success?: boolean;
 }

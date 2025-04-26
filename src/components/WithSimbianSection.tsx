@@ -4,7 +4,7 @@ import Image from 'next/image'
 
 import ignoredAlerts from '@/assets/alerts/ignored.svg'
 import closedAlerts from '@/assets/alerts/closed.svg'
-import threatAlerts from '@/assets/alerts/threat.svg'
+import threatNoneAlerts from '@/assets/alerts/threat-none.svg'
 import threatIcon1 from '@/assets/threats/threat-1.svg'
 import threatIcon2 from '@/assets/threats/threat-2.svg'
 import threatIcon3 from '@/assets/threats/threat-3.svg'
@@ -20,12 +20,18 @@ import closeCon from '@/assets/cons/close.svg'
 import { ThreatInterface } from '@/types/Threat'
 import ThreatCard from './ThreatCard'
 
+import tickIcon from '@/assets/pros/tick.svg'
+import personIcon from '@/assets/pros/person.svg'
+import insightIcon from '@/assets/pros/insight.svg'
+import documentIcon from '@/assets/pros/document.svg'
+
 const WithSimbianSection = () => {
   const alerts: AlertInterface[] = [
     {
       id: 1,
       title: 'Ignored Alerts',
       icon: ignoredAlerts,
+      show_success: true,
       count: 0,
       threats: []
     },
@@ -33,33 +39,38 @@ const WithSimbianSection = () => {
       id: 2,
       title: 'Wrongly Closed',
       icon: closedAlerts,
+      show_success: true,
       count: 0,
       threats: []
     },
     {
       id: 3,
       title: 'Active Threats',
-      icon: threatAlerts,
+      icon: threatNoneAlerts,
+      show_success: true,
       high_priority: false,
       count: 0,
       threats: []
     },
   ]
-  const negatives: FeatureInterface[] = [
+  const positives: FeatureInterface[] = [
     {
       id: 1,
-      icon: closeCon,
-      title: 'Wasting valuable analyst time on false positives'
+      icon: personIcon,
+      title: 'Less noise',
+      description: '90% of alerts resolved automatically, 24/7'
     },
     {
       id: 2,
-      icon: screenCon,
-      title: 'Processing one alert at a time, missing the big picture'
+      icon: insightIcon,
+      title: 'Holistic insight',
+      description: 'Correlate alerts and your environment into the big picture'
     },
     {
       id: 3,
-      icon: alertCon,
-      title: 'More time fixing SOAR automation, less time on real threats'
+      icon: documentIcon,
+      title: 'Adapts automatically',
+      description: 'No SOAR needed. Investigate every alert, including new ones, with best of Simbian\'s knowledge and yours'
     }
   ]
   const discoveredThreats: ThreatInterface[] = [
@@ -88,7 +99,7 @@ const WithSimbianSection = () => {
         </div>
         <div className='grid grid-cols-5 mt-[100px] gap-10 items-stretch'>
           <div className='col-span-2 flex flex-col justify-end gap-8'>
-            {alerts.map((alert: any) => <AlertsCard key={alert.id} icon={alert.icon} threats={alert.threats} count={alert.count} title={alert.title} high_priority={alert.high_priority} />)}
+            {alerts.map((alert: any) => <AlertsCard key={alert.id} icon={alert.icon} threats={alert.threats} count={alert.count} title={alert.title} high_priority={alert.high_priority} show_success={alert.show_success} />)}
           </div>
           <div className='col-span-3'>
             <div className='flex flex-col justify-start items-start gap-6 w-full'>
@@ -104,7 +115,7 @@ const WithSimbianSection = () => {
                 </div>
                 <div className='w-full shrink relative'>
                   <div className="absolute top-0 left-0 w-full translate-y-[-50%] max-w-[500px]">
-                    <FeaturesCard icon={ignoredAlerts} title={'Writing Query'} description={'Querying across so many tools gets complex...'} high_priority={false} />
+                    <FeaturesCard icon={tickIcon} title={'Triaged & Reported'} description={'The SOC Agent handled investigation and reporting.'} high_priority={false} />
                   </div>
                 </div>
               </div>
@@ -112,7 +123,7 @@ const WithSimbianSection = () => {
             <div className='flex justify-start items-center mt-14'>
               <Arrow />
               <div className='flex justify-start items-start flex-col gap-8 max-w-[400px] ml-[136px]'>
-                {negatives.map(con => <FeaturesCard key={con.id} icon={con.icon} title={con.title} high_priority={true} />)}
+                {positives.map(pro => <FeaturesCard key={pro.id} icon={pro.icon} title={pro.title} high_priority={false} description={pro.description} />)}
               </div>
             </div>
           </div>
