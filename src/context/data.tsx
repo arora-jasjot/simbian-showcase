@@ -1,5 +1,6 @@
 "use client";
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+"use client";
+import React, { createContext, useContext, useState, useEffect, ReactNode, useRef } from 'react';
 import { AlertInterface } from "@/types/Alert";
 import { ThreatInterface } from "@/types/Threat";
 import ignoredAlerts from '@/assets/alerts/ignored.svg';
@@ -8,16 +9,6 @@ import threatAlerts from '@/assets/alerts/threat.svg';
 import threatNoneAlerts from '@/assets/alerts/threat-none.svg';
 import { threats } from '@/data/threats';
 
-// Helper function to get random threats
-const getRandomThreats = (length: number): ThreatInterface[] => {
-  const result: ThreatInterface[] = [];
-  const _length = length > 10 ? 10 : length;
-  for (let i = 0; i < _length; i++) {
-    const randomIndex = Math.floor(Math.random() * threats.length);
-    result.push(threats[randomIndex]);
-  }
-  return result.slice(0, 10);
-};
 
 // Define the initial state of alerts
 const initialAlerts: AlertInterface[] = [
@@ -26,14 +17,36 @@ const initialAlerts: AlertInterface[] = [
     title: 'Ignored Alerts',
     icon: ignoredAlerts,
     count: 200,
-    threats: getRandomThreats(200),
+    threats: [
+      {...threats[0]},
+      {...threats[2]},
+      {...threats[1]},
+      {...threats[2]},
+      {...threats[1]},
+      {...threats[0]},
+      {...threats[1]},
+      {...threats[2]},
+      {...threats[0]},
+      {...threats[1]}
+    ]
   },
   {
     id: 2,
     title: 'Wrongly Closed',
     icon: closedAlerts,
     count: 35,
-    threats: getRandomThreats(35),
+    threats: [
+      {...threats[0]},
+      {...threats[1]},
+      {...threats[2]},
+      {...threats[1]},
+      {...threats[1]},
+      {...threats[2]},
+      {...threats[0]},
+      {...threats[0]},
+      {...threats[2]},
+      {...threats[1]}
+    ]
   },
   {
     id: 3,
@@ -42,7 +55,13 @@ const initialAlerts: AlertInterface[] = [
     icon2: threatNoneAlerts,
     high_priority: true,
     count: 5,
-    threats: getRandomThreats(5),
+    threats: [
+      {...threats[0]},
+      {...threats[1]},
+      {...threats[2]},
+      {...threats[1]},
+      {...threats[1]}
+    ]
   },
 ];
 
@@ -67,7 +86,8 @@ interface AlertProviderProps {
 export const AlertProvider = ({ children }: AlertProviderProps) => {
   const [alerts, setAlerts] = useState<AlertInterface[]>(initialAlerts);
   const [withSimbianMode, setWithSimbianMode] = useState(false);
-  
+  const intervalRef = useRef<NodeJS.Timeout | null>(null); // Ref to store the interval
+
   // Helper function to add a random threat to the Active Threats alert
   const addRandomThreat = () => {
     if (!withSimbianMode) {
@@ -89,20 +109,49 @@ export const AlertProvider = ({ children }: AlertProviderProps) => {
     }
   };
 
-  // Function to clear all alerts (set count to 0 and clear threats)
+  // Function to clear all alerts gradually (set count to 0 and clear threats)
   const clearAlerts = () => {
-    setAlerts((prevAlerts) => {
-      return prevAlerts.map((alert) => {
-        return { ...alert, count: 0, threats: [] }; // Reset count to 0 and clear threats
+    const totalDuration = 2000; // 2 seconds
+    const stepDuration = 5; // Step duration in milliseconds
+    const steps = totalDuration / stepDuration;
+
+    let currentStep = 0;
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current); // Clear any existing interval
+    }
+    
+    intervalRef.current = setInterval(() => {
+      setAlerts((prevAlerts) => {
+        return prevAlerts.map((alert) => {
+          if (alert.count > 0) {
+            // Decrement count and remove one threat at each step
+            const decrementCount = alert.count > 0 ? 1 : 0;
+            const newCount = alert.count - decrementCount;
+            const newThreats = (alert.threats || []).slice(0, newCount);
+            return { ...alert, count: newCount, threats: newThreats };
+          }
+          return alert;
+        });
       });
-    });
-    setWithSimbianMode(true); // This will prevent new threats from being added
+
+      currentStep += 1;
+      if (currentStep >= steps) {
+        clearInterval(intervalRef.current || 0); // Clear the interval when done
+        intervalRef.current = null; // Reset the interval reference
+        setWithSimbianMode(true); // Prevent new threats after clearing
+      }
+    }, stepDuration);
   };
-  
+
   // Function to reset all alerts to initial state
   const resetAlerts = () => {
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current); // Clear the ongoing interval
+      intervalRef.current = null; // Reset the interval reference
+    }
+
     setAlerts(initialAlerts);
-    setWithSimbianMode(false); // This will allow new threats to be added again
+    setWithSimbianMode(false); // Allow new threats to be added again
   };
 
   // Use useEffect to set up the interval for increasing Active Threats

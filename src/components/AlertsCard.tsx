@@ -58,7 +58,8 @@ const AlertsCard = ({ icon, title, count, threats, high_priority, icon2, withSim
                   icon={threat.icon} 
                   title={threat.title} 
                   index={index} 
-                  leftMargin={true} 
+                  leftMargin={true}
+                  includeAnimation={title === 'Active Threats' && index > 4}
                 />
               ))}
             </div>
