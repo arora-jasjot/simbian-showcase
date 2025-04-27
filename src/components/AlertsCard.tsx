@@ -12,7 +12,6 @@ interface AlertCardProps extends AlertInterface{
 
 const AlertsCard = ({ icon, title, count, threats, high_priority, icon2, withSimbian=false }: AlertCardProps) => {
   const [isRedBackground, setIsRedBackground] = useState(false);
-console.log(threats)
   useEffect(() => {
     if (!withSimbian && high_priority) {
       const interval = setInterval(() => {
