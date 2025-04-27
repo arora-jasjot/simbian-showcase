@@ -31,26 +31,20 @@ const WithSimbianSection = () => {
       id: 1,
       title: 'Ignored Alerts',
       icon: ignoredAlerts,
-      show_success: true,
-      count: 0,
-      threats: []
+      count: 0
     },
     {
       id: 2,
       title: 'Wrongly Closed',
       icon: closedAlerts,
-      show_success: true,
-      count: 0,
-      threats: []
+      count: 0
     },
     {
       id: 3,
       title: 'Active Threats',
       icon: threatNoneAlerts,
-      show_success: true,
       high_priority: false,
-      count: 0,
-      threats: []
+      count: 0
     },
   ]
   const positives: FeatureInterface[] = [
@@ -99,7 +93,7 @@ const WithSimbianSection = () => {
         </div>
         <div className='grid grid-cols-5 mt-[100px] gap-10 items-stretch'>
           <div className='col-span-2 flex flex-col justify-end gap-8'>
-            {alerts.map((alert: any) => <AlertsCard key={alert.id} icon={alert.icon} threats={alert.threats} count={alert.count} title={alert.title} high_priority={alert.high_priority} show_success={alert.show_success} />)}
+            {alerts.map((alert: any) => <AlertsCard key={alert.id} icon={alert.icon} count={alert.count} title={alert.title} high_priority={alert.high_priority} threats={[]} />)}
           </div>
           <div className='col-span-3'>
             <div className='flex flex-col justify-start items-start gap-6 w-full'>

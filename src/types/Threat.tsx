@@ -1,5 +1,5 @@
 export interface ThreatInterface {
-  id: number;
+  id?: number;
   icon: string;
   title: string;
 }

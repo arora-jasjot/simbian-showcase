@@ -1,17 +1,14 @@
 "use client";
-import WithoutSimbianSection from "@/components/WithoutSimbianSection";
-import WithSimbianSection from "@/components/WithSimbianSection";
 import Image from "next/image";
 
 import backgroundImage from '@/assets/background.png'
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "motion/react"
 
-import linkImage from '@/assets/cta-link.svg'
-
 import ignoredAlerts from '@/assets/alerts/ignored.svg'
 import closedAlerts from '@/assets/alerts/closed.svg'
 import threatAlerts from '@/assets/alerts/threat.svg'
+import threatNoneAlerts from '@/assets/alerts/threat-none.svg'
 import threatIcon1 from '@/assets/threats/threat-1.svg'
 import threatIcon2 from '@/assets/threats/threat-2.svg'
 import threatIcon3 from '@/assets/threats/threat-3.svg'
@@ -37,111 +34,21 @@ export default function Home() {
       id: 1,
       title: 'Ignored Alerts',
       icon: ignoredAlerts,
-      count: 5,
-      threats: [
-        {
-          id: 1,
-          icon: threatIcon1,
-          title: `Threat 1`
-        },
-        {
-          id: 2,
-          icon: threatIcon2,
-          title: `Threat 2`
-        },
-        {
-          id: 3,
-          icon: threatIcon3,
-          title: `Threat 3`
-        },
-        {
-          id: 4,
-          icon: threatIcon1,
-          title: `Threat 4`
-        },
-        {
-          id: 5,
-          icon: threatIcon2,
-          title: `Threat 5`
-        }
-      ]
+      count: 200
     },
     {
       id: 2,
       title: 'Wrongly Closed',
       icon: closedAlerts,
-      count: 10,
-      threats: [
-        {
-          id: 1,
-          icon: threatIcon1,
-          title: `Threat 1`
-        },
-        {
-          id: 2,
-          icon: threatIcon2,
-          title: `Threat 2`
-        },
-        {
-          id: 3,
-          icon: threatIcon3,
-          title: `Threat 3`
-        },
-        {
-          id: 4,
-          icon: threatIcon1,
-          title: `Threat 4`
-        },
-        {
-          id: 5,
-          icon: threatIcon2,
-          title: `Threat 5`
-        },
-        {
-          id: 6,
-          icon: threatIcon1,
-          title: `Threat 1`
-        },
-        {
-          id: 7,
-          icon: threatIcon2,
-          title: `Threat 2`
-        },
-        {
-          id: 8,
-          icon: threatIcon3,
-          title: `Threat 3`
-        },
-        {
-          id: 9,
-          icon: threatIcon1,
-          title: `Threat 4`
-        },
-        {
-          id: 10,
-          icon: threatIcon2,
-          title: `Threat 5`
-        }
-      ]
+      count: 35
     },
     {
       id: 3,
       title: 'Active Threats',
       icon: threatAlerts,
+      icon2: threatNoneAlerts,
       high_priority: true,
-      count: 3,
-      threats: [
-        {
-          id: 1,
-          icon: threatIcon1,
-          title: `Threat 1`
-        },
-        {
-          id: 2,
-          icon: threatIcon2,
-          title: `Threat 2`
-        }
-      ]
+      count: 5
     },
   ]
   const negatives: FeatureInterface[] = [
@@ -181,7 +88,7 @@ export default function Home() {
       description: 'No SOAR needed. Investigate every alert, including new ones, with best of Simbian\'s knowledge and yours'
     }
   ]
-  const discoveredThreats: ThreatInterface[] = [
+  const threats: ThreatInterface[] = [
     {
       id: 1,
       icon: threatIcon1,
@@ -257,6 +164,17 @@ export default function Home() {
     setWindowHeight(window.innerHeight);
   }, []);
 
+  const getRandomThreats = (length: number): ThreatInterface[] => {
+    const result: ThreatInterface[] = [];
+    const _length = length > 10 ? 10 : length
+    for (let i = 0; i < _length; i++) {
+      const randomIndex = Math.floor(Math.random() * threats.length);
+      result.push(threats[randomIndex]);
+    }
+  
+    return result.slice(0, 10);
+  };
+
   const currentFeature = processingData[currentIndex];
   return (
     <main className="w-full h-screen overflow-hidden">
@@ -276,7 +194,7 @@ export default function Home() {
                     key={withSimbian ? 'hidden' : 'block'}
                     initial={{ opacity: 0, y: 50 }}
                     animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -windowHeight }}  // Move fully up outside screen
+                    exit={{ opacity: 0, y: -windowHeight }}
                     transition={{ duration: 0.3, ease: "easeInOut" }}
                     className="relative w-full"
                   >
@@ -316,7 +234,7 @@ export default function Home() {
                     key={withSimbian ? 'hidden' : 'block'}
                     initial={{ opacity: 0, y: 50 }}
                     animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -windowHeight }}  // Move fully up outside screen
+                    exit={{ opacity: 0, y: -windowHeight }}
                     transition={{ duration: 0.3, ease: "easeInOut" }}
                     className="relative w-full"
                   >
@@ -337,7 +255,7 @@ export default function Home() {
                   </motion.div>
                 </AnimatePresence>
               </div>
-              {discoveredThreats.map((threat, index) => (
+              {threats.map((threat, index) => (
                 <ThreatCard key={threat.id} id={threat.id} icon={threat.icon} title={threat.title} index={index} />
               ))}
               <div
@@ -354,8 +272,8 @@ export default function Home() {
                     negatives.map(con => (
                       <motion.div
                         key={con.id}
-                        initial={{ opacity: 0, y: 50 }}  // Start below
-                        animate={{ opacity: 1, y: 0 }}   // Slide in to original position
+                        initial={{ opacity: 0, y: 50 }}
+                        animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: 0 }}
                         transition={{ duration: 0.5, ease: "easeInOut" }}
                       >
@@ -372,8 +290,8 @@ export default function Home() {
               <Arrow />
             </div>
           </div>
-          <div className='flex flex-col justify-end gap-4 w-fit absolute duration-500' style={{ top: '200px', left: withSimbian ? '40px' : 'calc(60% + 40px)' }}>
-            {alerts.map((alert: any) => <AlertsCard key={alert.id} icon={alert.icon} threats={alert.threats} count={alert.count} title={alert.title} high_priority={alert.high_priority} />)}
+          <div className='flex flex-col justify-end gap-4 w-fit min-w-[400px] absolute duration-500' style={{ top: '200px', left: withSimbian ? '40px' : 'calc(60% + 40px)' }}>
+            {alerts.map((alert: any) => <AlertsCard key={alert.id} icon={alert.icon} count={alert.count} title={alert.title} high_priority={alert.high_priority} icon2={alert.icon2} withSimbian={withSimbian} threats={getRandomThreats(alert.count)} />)}
           </div>
           <div
             className='max-w-[400px] absolute duration-500'
@@ -382,10 +300,10 @@ export default function Home() {
             <AnimatePresence>
               {withSimbian && (
                 <motion.div
-                  initial={{ opacity: 0, y: 50 }} // Initially hidden and moved down
-                  animate={{ opacity: 1, y: 0 }}  // Animate to visible and normal position
-                  exit={{ opacity: 0, y: -50 }}  // Optionally, animate exit as well
-                  transition={{ duration: 0.3, ease: 'easeInOut' }} // Transition over 3 seconds
+                  initial={{ opacity: 0, y: 50 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -50 }}
+                  transition={{ duration: 0.3, ease: 'easeInOut' }}
                   className="flex justify-start items-start flex-col gap-4 "
                 >
                   {positives.map(pro => (

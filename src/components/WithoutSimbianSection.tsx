@@ -30,111 +30,20 @@ const WithoutSimbianSection = ({ setWithSimbian }: WithoutSimbianSectionProps) =
       id: 1,
       title: 'Ignored Alerts',
       icon: ignoredAlerts,
-      count: 5,
-      threats: [
-        {
-          id: 1,
-          icon: threatIcon1,
-          title: `Threat 1`
-        },
-        {
-          id: 2,
-          icon: threatIcon2,
-          title: `Threat 2`
-        },
-        {
-          id: 3,
-          icon: threatIcon3,
-          title: `Threat 3`
-        },
-        {
-          id: 4,
-          icon: threatIcon1,
-          title: `Threat 4`
-        },
-        {
-          id: 5,
-          icon: threatIcon2,
-          title: `Threat 5`
-        }
-      ]
+      count: 5
     },
     {
       id: 2,
       title: 'Wrongly Closed',
       icon: closedAlerts,
-      count: 10,
-      threats: [
-        {
-          id: 1,
-          icon: threatIcon1,
-          title: `Threat 1`
-        },
-        {
-          id: 2,
-          icon: threatIcon2,
-          title: `Threat 2`
-        },
-        {
-          id: 3,
-          icon: threatIcon3,
-          title: `Threat 3`
-        },
-        {
-          id: 4,
-          icon: threatIcon1,
-          title: `Threat 4`
-        },
-        {
-          id: 5,
-          icon: threatIcon2,
-          title: `Threat 5`
-        },
-        {
-          id: 6,
-          icon: threatIcon1,
-          title: `Threat 1`
-        },
-        {
-          id: 7,
-          icon: threatIcon2,
-          title: `Threat 2`
-        },
-        {
-          id: 8,
-          icon: threatIcon3,
-          title: `Threat 3`
-        },
-        {
-          id: 9,
-          icon: threatIcon1,
-          title: `Threat 4`
-        },
-        {
-          id: 10,
-          icon: threatIcon2,
-          title: `Threat 5`
-        }
-      ]
+      count: 10
     },
     {
       id: 3,
       title: 'Active Threats',
       icon: threatAlerts,
       high_priority: true,
-      count: 3,
-      threats: [
-        {
-          id: 1,
-          icon: threatIcon1,
-          title: `Threat 1`
-        },
-        {
-          id: 2,
-          icon: threatIcon2,
-          title: `Threat 2`
-        }
-      ]
+      count: 3
     },
   ]
   const negatives: FeatureInterface[] = [
@@ -207,7 +116,7 @@ const WithoutSimbianSection = ({ setWithSimbian }: WithoutSimbianSectionProps) =
             </div>
           </div>
           <div className='col-span-2 flex flex-col justify-end gap-8'>
-            {alerts.map((alert: any) => <AlertsCard key={alert.id} icon={alert.icon} threats={alert.threats} count={alert.count} title={alert.title} high_priority={alert.high_priority} />)}
+            {alerts.map((alert: any) => <AlertsCard key={alert.id} icon={alert.icon} count={alert.count} title={alert.title} high_priority={alert.high_priority} threats={[]} />)}
           </div>
         </div>
       </div>

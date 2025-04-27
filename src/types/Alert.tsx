@@ -3,9 +3,8 @@ import { ThreatInterface } from "./Threat";
 export interface AlertInterface {
   id?: number;
   icon: string;
+  icon2?: string;
   title: string;
   count: number;
-  threats: ThreatInterface[];
   high_priority?: boolean;
-  show_success?: boolean;
 }
