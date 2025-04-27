@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Dispatch, SetStateAction } from 'react'
 import linkImage from '@/assets/cta-link.svg'
 import Image from 'next/image'
 
@@ -20,7 +20,11 @@ import closeCon from '@/assets/cons/close.svg'
 import { ThreatInterface } from '@/types/Threat'
 import ThreatCard from './ThreatCard'
 
-const WithoutSimbianSection = () => {
+interface WithoutSimbianSectionProps {
+  setWithSimbian :Dispatch<SetStateAction<boolean>>;
+}
+
+const WithoutSimbianSection = ({ setWithSimbian }: WithoutSimbianSectionProps) => {
   const alerts: AlertInterface[] = [
     {
       id: 1,
@@ -173,7 +177,7 @@ const WithoutSimbianSection = () => {
         <div className='absolute top-10 right-10'>
           <h1 className='text-end text-[#4F80FF] font-semibold text-4xl'>Without Simbian</h1>
           <p className='text-end text-[#616cd2] font-medium text-lg my-6'>If this sounds all too familiar, you might want to...</p>
-          <button className='bg-white px-4 py-3 rounded-full flex justify-center items-center gap-2 ml-auto font-semibold cursor-pointer'>Book a Demo <Image src={linkImage} alt='link' className='w-6' /></button>
+          <button onClick={() => setWithSimbian(true)} className='bg-white px-4 py-3 rounded-full flex justify-center items-center gap-2 ml-auto font-semibold cursor-pointer'>Book a Demo <Image src={linkImage} alt='link' className='w-6' /></button>
         </div>
         <div className='grid grid-cols-5 mt-[100px] gap-10 items-stretch'>
           <div className='col-span-3'>
