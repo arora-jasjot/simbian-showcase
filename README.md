@@ -1,36 +1,35 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Project Name
 
-## Getting Started
+## Live Demo
+You can view the live demo of the project here: [Simbian Showcase](https://simbian-showcase.vercel.app/)
 
-First, run the development server:
+## Description
+This project was created by following the guidelines provided in a shared video. The goal was to build a dynamic and responsive UI using React, while implementing smooth animations and scroll functionality. The project consists of multiple sections, each with and without Simbian elements, and dummy data was used for initial testing. The data was externalized into a context for better separation and maintainability.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Thought Process
+I began by analyzing the shared video and then proceeded to build the UI. I created separate sections with and without Simbian elements, initially using dummy data. These sections were later combined into a single page with different sections, ensuring proper structure. The data was then externalized into context for easier management.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+To enhance the visual experience, I used ChatGPT to generate a background image and then incorporated **Framer Motion** (motion/react) for animations. Once the animations were added, I focused on ensuring the responsiveness of the layout. After implementing the scroll functionality, I deployed the project to Vercel.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Animation Library Used
+The animations in this project were implemented using **Framer Motion** (motion/react). This was my first time using the library, and I found it to be an engaging and efficient way to add animations to the UI.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Known Issues & Improvements
+- **UI Design**: The overall UI can be improved in terms of visual appeal. There's potential to enhance the design with more polished elements.
+- **Mobile Performance**: On mobile devices, there's some lag when scrolling, which needs further investigation to optimize performance.
+- **Icons**: Some icons may not be used as intended, which could be fixed with more attention to detail.
+- **Animations**: The animations do not exactly replicate the ones in the reference video, but I have made efforts to come close. With more time, I can refine them to better match the original design.
 
-## Learn More
+## Technologies Used
+- **React** for UI components.
+- **Framer Motion** for animations.
+- **Vercel** for deployment.
+- **ChatGPT** for generating background images.
 
-To learn more about Next.js, take a look at the following resources:
+## Future Improvements
+- Refining the animations for better accuracy.
+- Optimizing performance, especially on mobile devices.
+- Improving the overall design and ensuring consistent icon usage.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Deployment
+The project has been deployed on Vercel and is available for public access.
