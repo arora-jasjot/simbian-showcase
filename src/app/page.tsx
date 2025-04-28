@@ -2,7 +2,7 @@
 import Image from "next/image";
 
 import backgroundImage from '@/assets/background.png'
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion } from "motion/react"
 
 
@@ -35,27 +35,42 @@ export default function Home() {
       resetAlerts()
     }
   }, [withSimbian])
-  const scrollDirection = useScrollDirection();
+  const divRef = useRef<HTMLDivElement>(null);
+  const scrollDirection = useScrollDirection(divRef);
 
-  // useEffect(() => {
-  //   if (scrollDirection === "down") {
-  //     setWithSimbian(true)
-  //   } else if (scrollDirection === "up") {
-  //     setWithSimbian(false)
-  //   }
-  // }, [scrollDirection]);
+  useEffect(() => {
+    if (scrollDirection === "down") {
+      setWithSimbian(true)
+    } else if (scrollDirection === "up") {
+      setWithSimbian(false)
+    }
+  }, [scrollDirection]);
+
+  useEffect(() => {
+    // Scroll to top whenever the `withSimbian` state changes
+    if (divRef.current) {
+      divRef.current.scrollTo(0, 0);
+    }
+  }, [withSimbian]);
 
 
   return (
     <main className="w-full h-screen overflow-hidden">
-      <Image src={backgroundImage} alt="background" className="w-full min-h-full" />
-      <motion.div
-        initial={{ backgroundColor: "#020816CC" }}
-        animate={{ backgroundColor: withSimbian ? "#620eab80" : "#020816CC" }}
-        transition={{ duration: 0.5 }}
-        className="absolute top-0 left-0 w-full h-full overflow-auto"
+    <Image
+      src={backgroundImage}
+      alt="background"
+      className="w-full min-h-full object-cover"
+    />
+    <motion.div
+      initial={{ backgroundColor: "#020816CC" }}
+      animate={{ backgroundColor: withSimbian ? "#620eab80" : "#020816CC" }}
+      transition={{ duration: 0.5 }}
+      className="absolute top-0 left-0 w-full h-full overflow-hidden"
+    >
+      <div
+        ref={divRef}
+        className="w-full h-full px-10 py-10 large:px-20 max-w-[1200px] m-auto overflow-auto"
       >
-        <div className="w-full h-full large:px-20 px-10 py-10 max-w-[1200px] m-auto overflow-y-auto">
           <div className="relative">
             <WithoutSimbianHeader withSimbian={withSimbian} />
             <WithSimbianHeader withSimbian={withSimbian} />
@@ -66,7 +81,7 @@ export default function Home() {
                 {threats.map((threat, index) => (
                   <ThreatCard key={threat.id} id={threat.id} icon={threat.icon} title={threat.title} index={index} />
                 ))}
-                <div onClick={() => setWithSimbian(sim => !sim)}
+                <div
                   className="w-10 h-10 shrink-0 bg-white rounded-md flex justify-center items-center relative"
                 >
                   <ClipLoader size={20} color="#4F80FF" />
