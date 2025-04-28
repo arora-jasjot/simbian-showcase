@@ -21,7 +21,7 @@ const AlertProcessingWithoutSimbian = ({ withSimbian }: WithSimbianProps ) => {
   }, []);
   const currentFeature = processingData[currentIndex];
   return (
-    <div className="absolute w-full right-0 top-[165px]">
+    <div className="absolute w-full right-0 small:top-[165px] bottom-0">
       <AnimatePresence mode="wait">
         <motion.div
           key={withSimbian ? 'hidden' : 'block'}
@@ -41,7 +41,7 @@ const AlertProcessingWithoutSimbian = ({ withSimbian }: WithSimbianProps ) => {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -50 }}
                 transition={{ duration: 0.3 }}
-                className="w-full flex items-center translate-y-[-50%]"
+                className="w-full flex small:flex-row flex-col-reverse small:items-center items-end small:translate-y-[-50%] translate-y-10"
               >
                 <div className="w-full shrink">
                   <FeaturesCard
@@ -52,7 +52,7 @@ const AlertProcessingWithoutSimbian = ({ withSimbian }: WithSimbianProps ) => {
                   />
                 </div>
 
-                <div className="w-[15%] max-w-[200px] h-[1px] overflow-visible bg-[#616cd2] relative">
+                <div className="w-[15%] max-w-[200px] h-[1px] overflow-visible bg-[#616cd2] relative small:block hidden">
                   <div className="absolute left-0 top-[50%] translate-x-[-50%] translate-y-[-50%] w-3 h-3 rounded-full bg-[#616cd2]"></div>
                 </div>
               </motion.div>

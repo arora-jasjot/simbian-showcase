@@ -3,3 +3,10 @@
 body{
   background-color: #1a294e;
 }
+
+@theme {
+  --breakpoint-large: 1200px;
+  --breakpoint-large2: 1100px;
+  --breakpoint-medium2: 850px;
+  --breakpoint-small: 500px;
+}

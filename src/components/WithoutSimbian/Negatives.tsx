@@ -14,6 +14,7 @@ const Negatives = ({ withSimbian }: WithSimbianProps) => {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 0 }}
           transition={{ duration: 0.5, ease: "easeInOut" }}
+          className='w-full'
         >
           <FeaturesCard
             icon={con.icon}

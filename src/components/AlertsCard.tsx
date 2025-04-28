@@ -21,8 +21,36 @@ const AlertsCard = ({ icon, title, count, threats, high_priority, icon2, withSim
     }
   }, [high_priority]);
 
+
+  const [windowWidth, setWindowWidth] = useState(0);
+
+  useEffect(() => {
+    // Set initial window width
+    setWindowWidth(window.innerWidth);
+
+    // Update window width on resize
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    // Cleanup listener
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  // Determine how many threats to show
+  const getSliceCount = () => {
+    if (windowWidth >= 500) return 10;
+    return 10;
+  };
+
+  const slicedThreats = threats.slice(0, getSliceCount());
+
   return (
-    <div className='w-full max-w-[300px]'>
+    <div className='w-full m-auto medium2:m-0'>
       <div className='relative px-4 py-6'>
         {high_priority ? (
           <motion.div
@@ -48,10 +76,10 @@ const AlertsCard = ({ icon, title, count, threats, high_priority, icon2, withSim
               {count}
             </h1>
           </div>
-          <div className='relative px-2 mt-1 w-full'>
+          <div className='relative px-2 mt-1'>
             <div className='absolute inset-0 bg-gray-500/10 backdrop-blur-xl rounded-md z-0'></div>
             <div className="flex z-10 h-10 w-full">
-              {threats.map((threat, index) => (
+              {slicedThreats.map((threat, index) => (
                 <ThreatCard 
                   key={index} 
                   id={threat.id} 
