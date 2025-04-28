@@ -11,7 +11,7 @@ interface ThreatCardProps extends ThreatInterface {
   includeAnimation?: boolean;
 }
 
-const ThreatCard = ({ icon, title, index, leftMargin = false, includeAnimation = false }: ThreatCardProps) => {
+const ThreatCard = ({ icon, index, leftMargin = false, includeAnimation = false }: ThreatCardProps) => {
   
   // Lock the random value once
   const initialY = useMemo(() => {

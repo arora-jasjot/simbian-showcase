@@ -2,7 +2,7 @@
 import Image from "next/image";
 
 import backgroundImage from '@/assets/background.png'
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "motion/react"
 
 
@@ -19,6 +19,7 @@ import { useAlerts } from "@/context/data";
 import WithoutSimbianHeader from "@/components/WithoutSimbian/Header";
 import WithSimbianHeader from "@/components/WithSimbian/Header";
 import useScrollDirection from "@/utils/useScrollDirection";
+import { AlertInterface } from "@/types/Alert";
 
 export default function Home() {
 
@@ -78,7 +79,7 @@ export default function Home() {
             </div>
           </div>
           <div className='flex flex-col justify-end gap-4 w-fit min-w-[400px] absolute duration-500' style={{ top: '200px', left: withSimbian ? '0px' : 'calc(60% + 40px)' }}>
-            {alerts.map((alert: any) => <AlertsCard key={alert.id} icon={alert.icon} count={alert.count} title={alert.title} high_priority={alert.high_priority} icon2={alert.icon2} withSimbian={withSimbian} threats={alert.threats} />)}
+            {alerts.map((alert: AlertInterface) => <AlertsCard key={alert.id} icon={alert.icon} count={alert.count} title={alert.title} high_priority={alert.high_priority} icon2={alert.icon2} withSimbian={withSimbian} threats={(alert.threats || [])} />)}
           </div>
           <div
             className='max-w-[400px] absolute duration-500'

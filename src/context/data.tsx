@@ -2,7 +2,6 @@
 "use client";
 import React, { createContext, useContext, useState, useEffect, ReactNode, useRef } from 'react';
 import { AlertInterface } from "@/types/Alert";
-import { ThreatInterface } from "@/types/Threat";
 import ignoredAlerts from '@/assets/alerts/ignored.svg';
 import closedAlerts from '@/assets/alerts/closed.svg';
 import threatAlerts from '@/assets/alerts/threat.svg';
