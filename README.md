@@ -21,10 +21,9 @@ The animations in this project were implemented using **Framer Motion** (motion/
 - **Animations**: The animations do not exactly replicate the ones in the reference video, but I have made efforts to come close. With more time, I can refine them to better match the original design.
 
 ## Technologies Used
-- **React** for UI components.
+- **Next.js** for UI components.
 - **Framer Motion** for animations.
 - **Vercel** for deployment.
-- **ChatGPT** for generating background images.
 
 ## Future Improvements
 - Refining the animations for better accuracy.
